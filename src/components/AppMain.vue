@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <AppHeader @search="getApi,getApiSeries" />
+    </div>
     <div id="container" class="d-flex justify-content-center align-items-center ">
         <div id="row" class="border border-black rounded-4 ">
             <div class="bg-black p-3 rounded-top-4   z-3 ">
@@ -17,6 +20,12 @@
                     :propsVoto="element.vote_average" />
             </div>
 
+
+            <div class="d-flex flex-wrap justify-content-center gap-5 p-3 overflow-auto">
+                <AppCardsFilms v-for="(element, index) in store.series" :key="index" :propsSrc="element.poster_path"
+                    :propsTitolo="element.title" :propsOriginalsTitle="element.original_title"
+                    :propsVoto="element.vote_average" />
+            </div>
         </div>
     </div>
 </template>
@@ -30,7 +39,7 @@ import { store } from '../../store'
 // importazione  axisos
 import axios from 'axios'
 
-
+import AppHeader from '../components/header/AppHeader.vue';
 import AppCardsFilms from '../components/cards/AppCardsFilms.vue';
 import AppSerchbars from '../components/AppSerchbars.vue';
 
@@ -40,6 +49,7 @@ export default {
     components: {
         AppCardsFilms,
         AppSerchbars,
+        AppHeader,
 
     },
     data() {
@@ -51,7 +61,7 @@ export default {
 
         getApi() {
 
-            axios.get(`${store.apiMovies}?api_Key=${store.api_key}&query=${store.searchtext}`)
+            axios.get(`${store.apiMovies}?api_key=${store.api_key}&query=${store.searchText}`)
                 .then((res) => {
                     console.log(res.data.results)
 
@@ -59,10 +69,21 @@ export default {
 
                 })
         },
+
+        getApiSeries(){
+            axios.get(`${store.apiSeries}?api_key=${store.api_key}&query=${store.searchText}`)
+                .then((res) => {
+                    console.log(res.data.results)
+
+                    store. series = res.data.results
+
+                })
+        }
        
     },
     mounted() {
         this.getApi();
+        this.getApiSeries();
     }
 }
 </script>

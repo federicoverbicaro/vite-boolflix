@@ -4,7 +4,7 @@
         <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username"
             aria-describedby="button-addon2" v-model="store.searchText" >
 
-        <button class="btn btn-dark text-danger " type="button" id="button-addon2" @click="search" >Button</button>
+        <button class="btn btn-dark text-danger " type="button" id="button-addon2" @click="$emit('search')" >Button</button>
     </div>
 </template>
 
@@ -16,12 +16,12 @@ export default {
     },
 
     data() {
-
-
         return {
             store
         }
     },
+
+
     methods: {
         search() {
             this.$emit('search', this.searchText);
