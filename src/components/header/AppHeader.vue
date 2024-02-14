@@ -18,9 +18,9 @@
 
             <div class="text-danger d-flex fs-4 gap-2">
 
-                <button class="text-danger bg-black border-0 text-capitalize  " type="button" @click="$emit('search')" :v-model="store.searchText">films</button>
+                <button class="text-danger bg-black border-0 text-capitalize  " type="button" @click="search('films')">films</button>
 
-                <button class="text-danger bg-black border-0 text-capitalize " type="button" @click="$emit('search')" :v-model="store.searchText">series</button>
+                <button class="text-danger bg-black border-0 text-capitalize " type="button" @click="search('series')">series</button>
 
             </div>
         </nav>
@@ -42,7 +42,8 @@ export default {
     methods: {
         search() {
             this.$emit('search', this.searchText);
-        }
+        },
+        
     }
 }
 </script>

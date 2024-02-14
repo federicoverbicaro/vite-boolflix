@@ -1,6 +1,6 @@
 <template>
     <div>
-        <AppHeader @search="getApi,getApiSeries" />
+        <AppHeader />
     </div>
     <div id="container" class="d-flex justify-content-center align-items-center ">
         <div id="row" class="border border-black rounded-4 ">
@@ -10,22 +10,21 @@
 
 
             <div>
-                <AppSerchbars @search="getApi" />
+                <AppSerchbars @search="searchItems" />
             </div>
 
 
             <div class="d-flex flex-wrap justify-content-center gap-5 p-3 overflow-auto">
-                <AppCardsFilms v-for="(element, index) in store.movies" :key="index" :propsSrc="element.poster_path"
-                    :propsTitolo="element.title" :propsOriginalsTitle="element.original_title"
-                    :propsVoto="element.vote_average" />
+                <AppCardsFilms v-for="(movie, index) in store.movies" :key="index" :item="movie" />
             </div>
-
 
             <div class="d-flex flex-wrap justify-content-center gap-5 p-3 overflow-auto">
-                <AppCardsFilms v-for="(element, index) in store.series" :key="index" :propsSrc="element.poster_path"
-                    :propsTitolo="element.title" :propsOriginalsTitle="element.original_title"
-                    :propsVoto="element.vote_average" />
+                <AppCardsFilms v-for="(series, index) in store.series" :key="index" :item="series" />
             </div>
+
+
+
+
         </div>
     </div>
 </template>
@@ -58,29 +57,29 @@ export default {
         }
     },
     methods: {
-
-        getApi() {
-
-            axios.get(`${store.apiMovies}?api_key=${store.api_key}&query=${store.searchText}`)
+        searchItems() {
+            
+            axios.get(`${store.apiMovies}?api_key=${store.api_key}&query=${this.store.searchText}`)
                 .then((res) => {
-                    console.log(res.data.results)
-
-                    store.movies = res.data.results
-
+                    console.log(res.data.results);
+                    this.store.movies = res.data.results;
                 })
+                .catch((error) => {
+                    console.error('Errore nel recupero dei film:', error);
+                });
+
+            
+            axios.get(`${store.apiSeries}?api_key=${store.api_key}&query=${this.store.searchText}`)
+                .then((res) => {
+                    console.log(res.data.results);
+                    this.store.series = res.data.results;
+                })
+                .catch((error) => {
+                    console.error('Errore nel recupero delle serie TV:', error);
+                });
         },
-
-        getApiSeries(){
-            axios.get(`${store.apiSeries}?api_key=${store.api_key}&query=${store.searchText}`)
-                .then((res) => {
-                    console.log(res.data.results)
-
-                    store. series = res.data.results
-
-                })
-        }
-       
     },
+
     mounted() {
         this.getApi();
         this.getApiSeries();
