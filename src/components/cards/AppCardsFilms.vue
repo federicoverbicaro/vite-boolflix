@@ -10,6 +10,7 @@
                 <span>{{ propsVoto }}</span>
             </div>
         </div>
+        
     </div>
 </template>
 
