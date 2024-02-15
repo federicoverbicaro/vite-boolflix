@@ -12,9 +12,7 @@
                 </div>
             </nav>
             
-            <div>
-                <h2 class="text-danger fs-1 ">B</h2>
-            </div>
+           
 
             <div class="text-danger d-flex fs-4 gap-2">
 

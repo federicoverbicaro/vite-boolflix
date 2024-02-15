@@ -3,8 +3,8 @@
         <AppHeader />
     </div>
     <div id="container" class="d-flex justify-content-center align-items-center ">
-        <div id="row" class="border border-black rounded-4 ">
-            <div class="bg-black p-3 rounded-top-4   z-3 ">
+        <div id="row" class="border border-4 border-black rounded-4 ">
+            <div class="bg-black p-3 rounded-top-3   z-3 ">
                 <h1 class="text-center text-uppercase text-danger ">boolflix</h1>
             </div>
 
@@ -14,14 +14,24 @@
             </div>
 
 
-            <div class="d-flex flex-wrap justify-content-center gap-5 p-3 overflow-auto">
-                <AppCardsFilms v-for="(movie, index) in store.movies" :key="index" :item="movie" />
-            </div>
+            <div>
+                <div class="text-center text-white text-uppercase">
+                    <h5>Films</h5>
+                </div>
 
-            <div class="d-flex flex-wrap justify-content-center gap-5 p-3 overflow-auto">
-                <AppCardsFilms v-for="(series, index) in store.series" :key="index" :item="series" />
-            </div>
+                <div class="d-flex flex-wrap justify-content-center gap-5 p-3 overflow-auto">
 
+                    <AppCardsFilms v-for="(movie, index) in store.movies" :key="index" :item="movie" />
+                </div>
+
+                <div class="text-center text-white text-uppercase mt-3 ">
+                    <h5>series tv</h5>
+                </div>
+                <div class="d-flex flex-wrap justify-content-center gap-5 p-3 overflow-auto">
+
+                    <AppCardsFilms v-for="(series, index) in store.series" :key="index" :item="series" />
+                </div>
+            </div>
 
 
 
@@ -58,7 +68,7 @@ export default {
     },
     methods: {
         searchItems() {
-            
+
             axios.get(`${store.apiMovies}?api_key=${store.api_key}&query=${this.store.searchText}`)
                 .then((res) => {
                     console.log(res.data.results);
@@ -68,7 +78,7 @@ export default {
                     console.error('Errore nel recupero dei film:', error);
                 });
 
-            
+
             axios.get(`${store.apiSeries}?api_key=${store.api_key}&query=${this.store.searchText}`)
                 .then((res) => {
                     console.log(res.data.results);
@@ -78,11 +88,23 @@ export default {
                     console.error('Errore nel recupero delle serie TV:', error);
                 });
         },
-    },
 
+        getMovies() {
+            axios.get(`${store.apiMovies}?api_key=${store.api_key}`)
+                .then((res) => {
+                    console.log(res.data.results);
+                    this.store.movies = res.data.results;
+                })
+                .catch((error) => {
+                    console.error('Errore nel recupero dei film:', error);
+                });
+        },
+
+
+    },
     mounted() {
-        this.getApi();
-        this.getApiSeries();
+        this.getMovies();
+
     }
 }
 </script>
