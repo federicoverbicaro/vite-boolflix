@@ -1,16 +1,9 @@
 <template>
- <!-- Contenuto del componente radice -->
-
 <AppMain/>
-
 </template>
 
 <script>
 import AppMain from './components/AppMain.vue';
-
-// Definizione delle opzioni del componente
-
-
 
 //inserimento tag creazione componenti 
 export default {

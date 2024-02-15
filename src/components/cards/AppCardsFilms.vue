@@ -6,6 +6,8 @@
                 class="card-img-top rounded-2" alt="...">
 
 
+
+                
             <div id="card_text" v-else class="card-body d-flex flex-column bg-black text-white rounded-2 p-4  gap-3 ">
                 <h2 class="fs-4 ">Title: <br> {{ item.title }}</h2>
                 <h4 class="fs-5 ">Original title: <br> {{ item.original_title }}</h4>
