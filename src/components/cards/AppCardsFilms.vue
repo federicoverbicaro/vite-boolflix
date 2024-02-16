@@ -1,13 +1,14 @@
 <template>
     <div id="cards">
-        <div class="card mt-3 " :class="{active :!isHovered  }" style="width: 18rem;" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+        <div class="card mt-3 " :class="{ active: !isHovered }" style="width: 18rem;" @mouseenter="isHovered = true"
+            @mouseleave="isHovered = false">
 
             <img v-if="!isHovered && img" :src="'https://image.tmdb.org/t/p/original/' + item.poster_path"
                 class="card-img-top rounded-2" alt="">
-        
-                <h4 class="" v-else-if="!isHovered && !img">Film non
-                    disponibile</h4>
-            
+
+            <h4 class="" v-else-if="!isHovered && !img">Film non
+                disponibile</h4>
+
             <div id="card_text" v-else class="card-body d-flex flex-column bg-black text-white rounded-2 p-4  gap-3 ">
                 <h2 class="fs-4 ">Title: <br> {{ item.title }}</h2>
                 <h4 class="fs-5 ">Original title: <br> {{ item.original_title }}</h4>
@@ -40,7 +41,7 @@ export default {
 
         return {
             isHovered: false,
-            img: !!this.item.poster_path
+            img: false,
         }
     },
     methods: {
@@ -64,6 +65,9 @@ export default {
         },
 
     },
+    mounted() {
+        this.img = !!this.item.poster_path;
+    }
 
 }
 
@@ -78,7 +82,8 @@ export default {
 .card.mt-3 {
     height: 430px;
 }
-.active{
+
+.active {
     display: flex;
     justify-content: center;
     align-items: center;

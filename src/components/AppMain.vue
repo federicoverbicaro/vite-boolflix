@@ -14,7 +14,7 @@
             </div>
 
 
-            <div>
+            <div @search="loadingMovies">
                 <div class="text-center text-white text-uppercase">
                     <h5>Films</h5>
                 </div>
@@ -61,9 +61,10 @@ export default {
         AppHeader,
 
     },
+   
     data() {
         return {
-            store
+            store,
         }
     },
     methods: {
@@ -110,12 +111,12 @@ export default {
                     console.error('Errore nel recupero delle serie TV:', error);
                 });
         },
-
-
     },
     mounted() {
         this.loadingMovies();
-
+        console.log('Contenuto di item:', this.item);
+        console.log('Contenuto di item:', this.store.movies);
+        console.log('Contenuto di item:', this.store.series);
     }
 
 }
