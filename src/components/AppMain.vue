@@ -88,11 +88,33 @@ export default {
                     console.error('Errore nel recupero delle serie TV:', error);
                 });
         },
-      
+
+        loadingMovies() {
+
+            axios.get(`${store.apiMovies}?api_key=${store.api_key}`)
+                .then((res) => {
+                    console.log(res.data.results);
+                    this.store.movies = res.data.results;
+                })
+                .catch((error) => {
+                    console.error('Errore nel recupero dei film:', error);
+                });
+
+
+            axios.get(`${store.apiSeries}?api_key=${store.api_key}`)
+                .then((res) => {
+                    console.log(res.data.results);
+                    this.store.series = res.data.results;
+                })
+                .catch((error) => {
+                    console.error('Errore nel recupero delle serie TV:', error);
+                });
+        },
+
 
     },
-    mounted(){
-        this.searchItems();
+    mounted() {
+        this.loadingMovies();
 
     }
 
