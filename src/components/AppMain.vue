@@ -88,24 +88,14 @@ export default {
                     console.error('Errore nel recupero delle serie TV:', error);
                 });
         },
-
-        getMovies() {
-            axios.get(`${store.apiMovies}?api_key=${store.api_key}`)
-                .then((res) => {
-                    console.log(res.data.results);
-                    this.store.movies = res.data.results;
-                })
-                .catch((error) => {
-                    console.error('Errore nel recupero dei film:', error);
-                });
-        },
-
+      
 
     },
-    mounted() {
-        this.getMovies();
+    mounted(){
+        this.searchItems();
 
     }
+
 }
 </script>
 

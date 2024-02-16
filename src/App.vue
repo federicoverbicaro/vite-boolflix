@@ -1,17 +1,23 @@
 <template>
-<AppMain/>
+ 
+    <AppMain />
+ 
 </template>
 
 <script>
 import AppMain from './components/AppMain.vue';
 
+
+
 //inserimento tag creazione componenti 
 export default {
 
-  components : {
-    AppMain
-}
-  
+  components: {
+    AppMain,
+  },
+
+ 
+
 }
 
 </script>
