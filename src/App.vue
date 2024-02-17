@@ -8,7 +8,6 @@
 import AppMain from './components/AppMain.vue';
 
 
-
 //inserimento tag creazione componenti 
 export default {
 

@@ -2,7 +2,8 @@
     <div>
         <AppHeader />
     </div>
-    <div id="container" class="d-flex justify-content-center align-items-center ">
+
+    <div @search="loadingMovies" id="container" class="d-flex justify-content-center align-items-center ">
         <div id="row" class="border border-4 border-black rounded-4 ">
             <div class="bg-black p-3 rounded-top-3   z-3 ">
                 <h1 class="text-center text-uppercase text-danger ">boolflix</h1>
@@ -14,7 +15,8 @@
             </div>
 
 
-            <div @search="loadingMovies">
+            <div>
+
                 <div class="text-center text-white text-uppercase">
                     <h5>Films</h5>
                 </div>
@@ -61,7 +63,7 @@ export default {
         AppHeader,
 
     },
-   
+
     data() {
         return {
             store,
@@ -72,7 +74,7 @@ export default {
 
             axios.get(`${store.apiMovies}?api_key=${store.api_key}&query=${this.store.searchText}`)
                 .then((res) => {
-                    console.log(res.data.results);
+
                     this.store.movies = res.data.results;
                 })
                 .catch((error) => {
@@ -82,7 +84,7 @@ export default {
 
             axios.get(`${store.apiSeries}?api_key=${store.api_key}&query=${this.store.searchText}`)
                 .then((res) => {
-                    console.log(res.data.results);
+
                     this.store.series = res.data.results;
                 })
                 .catch((error) => {
@@ -92,31 +94,27 @@ export default {
 
         loadingMovies() {
 
-            axios.get(`${store.apiMovies}?api_key=${store.api_key}`)
+            axios.get(`${store.apiDomMovies}?api_key=${store.api_key}&query="${store.searchTextDom}&page=20`)
                 .then((res) => {
-                    console.log(res.data.results);
+                    console.log('Risultati API Movies:', res.data.results)
                     this.store.movies = res.data.results;
                 })
                 .catch((error) => {
                     console.error('Errore nel recupero dei film:', error);
                 });
-
-
-            axios.get(`${store.apiSeries}?api_key=${store.api_key}`)
-                .then((res) => {
-                    console.log(res.data.results);
-                    this.store.series = res.data.results;
-                })
-                .catch((error) => {
-                    console.error('Errore nel recupero delle serie TV:', error);
-                });
         },
+
+        search() {
+            this.$emit('search', this.serachText);
+            this.$emit('ricercaInDom', this.searchTextDom);
+        },
+
     },
     mounted() {
-        this.loadingMovies();
-        console.log('Contenuto di item:', this.item);
-        console.log('Contenuto di item:', this.store.movies);
-        console.log('Contenuto di item:', this.store.series);
+
+       this.loadingMovies();
+
+
     }
 
 }
